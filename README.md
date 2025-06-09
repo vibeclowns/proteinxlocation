@@ -93,6 +93,67 @@ Use, reuse, modification, and re-distribution of the source code in this reposit
 
 If you believe you have found a security issue, we would appreciate notification. Please send email to <security@chanzuckerberg.com>.
 
+## Syncing with Upstream CELLxGENE
+
+This fork maintains custom branding changes that rename "cellxgene" to "proteinxlocation" in the frontend. When syncing with the upstream CELLxGENE repository, use the provided patch file to reapply these changes.
+
+### Applying the Branding Patch
+
+The `proteinxlocation-branding.patch` file contains all the necessary frontend branding changes. To apply it when syncing with upstream:
+
+1. **Fetch the latest upstream changes:**
+   ```bash
+   git fetch upstream
+   git checkout main
+   git merge upstream/main
+   ```
+
+2. **Check if the patch can be applied cleanly:**
+   ```bash
+   git apply --check proteinxlocation-branding.patch
+   ```
+   
+   If this command succeeds without output, the patch can be applied safely.
+
+3. **Apply the patch:**
+   ```bash
+   git apply proteinxlocation-branding.patch
+   ```
+
+4. **Commit the changes:**
+   ```bash
+   git add .
+   git commit -m "Apply proteinxlocation branding after upstream sync"
+   ```
+
+### Handling Patch Conflicts
+
+If the patch cannot be applied cleanly (step 2 fails), the upstream changes may have modified the same files. In this case:
+
+1. **Apply the patch with 3-way merge:**
+   ```bash
+   git apply --3way proteinxlocation-branding.patch
+   ```
+
+2. **Resolve any conflicts manually** by editing the affected files
+
+3. **Complete the application:**
+   ```bash
+   git add .
+   git commit -m "Apply proteinxlocation branding after upstream sync (with conflict resolution)"
+   ```
+
+### What the Patch Changes
+
+The patch modifies the following frontend elements:
+- Page titles from "CELL×GENE" to "protein×location"
+- Package name in `package.json` from "cellxgene" to "proteinxlocation"  
+- Global window object from `CELLXGENE` to `PROTEINXLOCATION`
+- Loading and error messages to use "proteinxlocation"
+- Logo alt text and version display text
+
+Backend functionality and internal references remain unchanged.
+
 # Inspiration
 
 We've been heavily inspired by several other related single-cell visualization projects, including the [UCSC Cell Browser](http://cells.ucsc.edu/), [Cytoscape](http://www.cytoscape.org/), [Xena](https://xena.ucsc.edu/), [ASAP](https://asap.epfl.ch/), [GenePattern](http://genepattern-notebook.org/), and many others. We hope to explore collaborations where useful as this community works together on improving interactive visualization for single-cell data.
