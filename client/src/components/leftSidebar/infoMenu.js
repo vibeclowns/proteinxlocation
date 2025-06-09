@@ -32,7 +32,7 @@ const InformationMenu = React.memo((props) => {
           <MenuItem
             style={{ cursor: "default" }}
             target="_blank"
-            text={libraryVersions?.cellxgene || null}
+            text={libraryVersions?.proteinxlocation || null}
           />
           <MenuItem style={{ cursor: "default" }} text="MIT License" />
           {tosURL && (
