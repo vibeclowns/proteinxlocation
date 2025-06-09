@@ -8,8 +8,8 @@ const Logo = (props) => {
       src={icon}
       height={size}
       width={size}
-      alt="CELLxGENE Annotate Logo"
-     />
+      alt="proteinxlocation Annotate Logo"
+    />
   );
 };
 
