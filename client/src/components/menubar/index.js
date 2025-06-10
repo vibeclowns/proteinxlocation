@@ -305,7 +305,9 @@ class MenuBar extends React.PureComponent {
               onClick={this.handleProteinHoverToggle}
               active={isProteinHoverEnabled}
               intent={isProteinHoverEnabled ? "primary" : "none"}
-              disabled={!isColoredByCategorical}
+              disabled={
+                !isColoredByCategorical || graphInteractionMode !== "zoom"
+              }
             />
           </Tooltip>
         </ButtonGroup>
@@ -320,6 +322,8 @@ class MenuBar extends React.PureComponent {
               data-testid="mode-lasso"
               icon={selectionButtonIcon}
               active={graphInteractionMode === "select"}
+              intent={graphInteractionMode === "select" ? "primary" : "none"}
+              disabled={isProteinHoverEnabled}
               onClick={() => {
                 dispatch({
                   type: "change graph interaction mode",
@@ -338,6 +342,7 @@ class MenuBar extends React.PureComponent {
               data-testid="mode-pan-zoom"
               icon="zoom-in"
               active={graphInteractionMode === "zoom"}
+              intent={graphInteractionMode === "zoom" ? "primary" : "none"}
               onClick={() => {
                 dispatch({
                   type: "change graph interaction mode",

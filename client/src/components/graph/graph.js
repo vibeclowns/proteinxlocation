@@ -27,7 +27,6 @@ import {
   flagSelected,
   flagHighlight,
 } from "../../util/glHelpers";
-import calcCentroid from "../../util/centroid";
 
 /*
 Simple 2D transforms control all point painting.  There are three:
@@ -361,37 +360,36 @@ class Graph extends React.Component {
         annoMatrix.fetch(...query),
       ]);
 
-      // Calculate centroids for proteins
-      const centroids = calcCentroid(
-        annoMatrix.schema,
-        colors.colorAccessor,
-        colorDf,
-        layoutChoice,
-        layoutDf
-      );
+      const X = layoutDf.col(layoutChoice.currentDimNames[0]).asArray();
+      const Y = layoutDf.col(layoutChoice.currentDimNames[1]).asArray();
+      const labels = colorDf.col(colors.colorAccessor).asArray();
 
-      // Identify the nearest protein point
-      let foundProteinName = null;
+      let foundIndex = null;
+      let foundLabel = null;
       let foundCoordinates = null;
       let minDist = Infinity;
 
-      centroids.forEach((coords, labelName) => {
-        const dx = coords[0] - dataXY[0];
-        const dy = coords[1] - dataXY[1];
+      for (let i = 0; i < X.length; i += 1) {
+        const dx = X[i] - dataXY[0];
+        const dy = Y[i] - dataXY[1];
         const dist = Math.hypot(dx, dy);
 
         if (dist < minDist) {
           minDist = dist;
-          foundProteinName = labelName;
-          foundCoordinates = coords;
+          foundIndex = i;
+          foundLabel = labels[i];
+          foundCoordinates = [X[i], Y[i]];
         }
-      });
+      }
 
       // Dispatch hover actions
-      if (minDist < threshold && foundProteinName && foundCoordinates) {
+      if (minDist < threshold && foundIndex !== null && foundCoordinates) {
         dispatch({
           type: "protein hover start",
-          payload: { protein: foundProteinName, coordinates: foundCoordinates },
+          payload: {
+            protein: `${foundLabel} | ${foundIndex}`,
+            coordinates: foundCoordinates,
+          },
         });
       } else {
         dispatch({ type: "protein hover end" });
@@ -418,7 +416,10 @@ class Graph extends React.Component {
     if (e.type !== "wheel") e.preventDefault();
     if (camera.handleEvent(e, projectionTF)) {
       this.renderCanvas();
-      this.setState((state) => ({ ...state, updateOverlay: !state.updateOverlay }));
+      this.setState((state) => ({
+        ...state,
+        updateOverlay: !state.updateOverlay,
+      }));
     }
   };
 
@@ -1077,32 +1078,29 @@ const ErrorLoading = ({ displayName, error, width, height }) => {
   );
 };
 
-const StillLoading = ({ displayName, width, height }) => 
+const StillLoading = ({ displayName, width, height }) => (
   /*
   Render a busy/loading indicator
   */
-   (
+  <div
+    style={{
+      position: "fixed",
+      fontWeight: 500,
+      top: height / 2,
+      width,
+    }}
+  >
     <div
       style={{
-        position: "fixed",
-        fontWeight: 500,
-        top: height / 2,
-        width,
+        display: "flex",
+        justifyContent: "center",
+        justifyItems: "center",
+        alignItems: "center",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          justifyItems: "center",
-          alignItems: "center",
-        }}
-      >
-        <Button minimal loading intent="primary" />
-        <span style={{ fontStyle: "italic" }}>Loading {displayName}</span>
-      </div>
+      <Button minimal loading intent="primary" />
+      <span style={{ fontStyle: "italic" }}>Loading {displayName}</span>
     </div>
-  )
-;
-
+  </div>
+);
 export default Graph;
