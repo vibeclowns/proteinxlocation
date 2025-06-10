@@ -123,7 +123,7 @@ function QuickGene() {
         }}
         onClick={handleExpand}
       >
-        Genes{" "}
+        Samples{" "}
         {isExpanded ? (
           <Icon icon={IconNames.CHEVRON_DOWN} />
         ) : (

@@ -69,7 +69,7 @@ class GeneExpression extends React.Component {
               }}
               onClick={this.handleExpandGeneSets}
             >
-              Gene Sets{" "}
+              Sample Sets{" "}
               {geneSetsExpanded ? (
                 <Icon icon={IconNames.CHEVRON_DOWN} />
               ) : (
