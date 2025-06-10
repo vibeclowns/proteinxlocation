@@ -37,7 +37,7 @@ class LeftSideBar extends React.Component {
     return (
       <div
         style={{
-          paddingLeft: 8,
+          paddingLeft: 5,
           paddingTop: 8,
           width: globals.leftSidebarWidth,
           zIndex: 1,
@@ -48,19 +48,18 @@ class LeftSideBar extends React.Component {
         }}
       >
         <div>
-          <Logo size={28} />
           <span
             style={{
               fontSize: 24,
               position: "relative",
-              top: -6,
+              top: -4,
               fontWeight: "bold",
               marginLeft: 5,
               color: globals.logoColor,
               userSelect: "none",
             }}
           >
-            cell
+            protein
             <span
               style={{
                 position: "relative",
@@ -71,7 +70,7 @@ class LeftSideBar extends React.Component {
             >
               ×
             </span>
-            gene
+            location
           </span>
         </div>
         <div style={{ marginRight: 5, height: "100%" }}>
