@@ -1,5 +1,5 @@
 {
-  "name": "cellxgene",
+  "name": "proteinxlocation",
   "version": "1.3.0",
   "license": "MIT",
   "description": "cellxgene is a web application for the interactive exploration of single cell sequence data.",
