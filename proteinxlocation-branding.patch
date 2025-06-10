@@ -1,41 +1,5 @@
-From 419b162848811dc4622afbf641e1c8902a7765d6 Mon Sep 17 00:00:00 2001
-From: Devin AI <158243242+devin-ai-integration[bot]@users.noreply.github.com>
-Date: Mon, 9 Jun 2025 23:21:55 +0000
-Subject: [PATCH 1/3] Rename frontend branding from cellxgene to
- proteinxlocation
-
-- Update HTML page title to 'proteinxlocation | Annotate'
-- Change package name from 'cellxgene' to 'proteinxlocation'
-- Update global window object from CELLXGENE to PROTEINXLOCATION
-- Change user-visible loading/error messages to use 'proteinxlocation'
-- Update logo alt text and version display text
-- Keep backend variables and internal references unchanged
-- Add .prettierignore to exclude template files from formatting
-
-Affects only user-visible frontend elements as requested.
-
-Co-Authored-By: kyle.awayan@czbiohub.org <kyle.awayan@gmail.com>
----
- client/.prettierignore                        | 1 +
- client/index_template.html                    | 6 +++---
- client/package-lock.json                      | 4 ++--
- client/package.json                           | 2 +-
- client/src/components/app.js                  | 6 +++---
- client/src/components/framework/logo.js       | 4 ++--
- client/src/components/leftSidebar/infoMenu.js | 2 +-
- client/src/globals.js                         | 8 ++++++--
- 8 files changed, 19 insertions(+), 14 deletions(-)
- create mode 100644 client/.prettierignore
-
-diff --git a/client/.prettierignore b/client/.prettierignore
-new file mode 100644
-index 00000000..78f93e93
---- /dev/null
-+++ b/client/.prettierignore
-@@ -0,0 +1 @@
-+index_template.html
 diff --git a/client/index_template.html b/client/index_template.html
-index 671ea6f8..6ff8614e 100644
+index 671ea6f8..098f35a9 100644
 --- a/client/index_template.html
 +++ b/client/index_template.html
 @@ -3,7 +3,7 @@
@@ -43,7 +7,7 @@ index 671ea6f8..6ff8614e 100644
      <meta charset="utf-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1" />
 -    <title>CELL&times;GENE | Annotate</title>
-+    <title>proteinxlocation | Annotate</title>
++    <title>protein&times;location | Annotate</title>
      <style>
        html,
        body,
@@ -88,7 +52,7 @@ index 3973e0ab..3087c9a8 100644
    "license": "MIT",
    "description": "cellxgene is a web application for the interactive exploration of single cell sequence data.",
 diff --git a/client/src/components/app.js b/client/src/components/app.js
-index b91ede88..f36977cf 100644
+index b91ede88..975d885e 100644
 --- a/client/src/components/app.js
 +++ b/client/src/components/app.js
 @@ -41,7 +41,7 @@ class App extends React.Component {
@@ -96,7 +60,7 @@ index b91ede88..f36977cf 100644
      return (
        <Container>
 -        <Helmet title="CELL&times;GENE | Annotate" />
-+        <Helmet title="proteinxlocation | Annotate" />
++        <Helmet title="protein&times;location | Annotate" />
          {loading ? (
            <div
              style={{
@@ -165,70 +129,4 @@ index 05845540..4eee6fa7 100644
  } else {
    if (CXG_SERVER_PORT === undefined) {
      const errorMessage = "Please set the CXG_SERVER_PORT environment variable.";
--- 
-2.34.1
-
-
-From 1fbd320cf9500d324ff52a40b8fa6542d4124a32 Mon Sep 17 00:00:00 2001
-From: Devin AI <158243242+devin-ai-integration[bot]@users.noreply.github.com>
-Date: Mon, 9 Jun 2025 23:39:27 +0000
-Subject: [PATCH 2/3] Remove .prettierignore file as requested
-
-User will handle prettier formatting configuration separately.
-
-Co-Authored-By: kyle.awayan@czbiohub.org <kyle.awayan@gmail.com>
----
- client/.prettierignore | 1 -
- 1 file changed, 1 deletion(-)
- delete mode 100644 client/.prettierignore
-
-diff --git a/client/.prettierignore b/client/.prettierignore
-deleted file mode 100644
-index 78f93e93..00000000
---- a/client/.prettierignore
-+++ /dev/null
-@@ -1 +0,0 @@
--index_template.html
--- 
-2.34.1
-
-
-From deb08a02f99ccdfaa719cc6d49cc18cfdf1622f6 Mon Sep 17 00:00:00 2001
-From: "kyle.awayan@czbiohub.org" <kyle.awayan@gmail.com>
-Date: Mon, 9 Jun 2025 23:43:07 +0000
-Subject: [PATCH 3/3] use times
-
----
- client/index_template.html   | 2 +-
- client/src/components/app.js | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/client/index_template.html b/client/index_template.html
-index 6ff8614e..098f35a9 100644
---- a/client/index_template.html
-+++ b/client/index_template.html
-@@ -3,7 +3,7 @@
-   <head>
-     <meta charset="utf-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1" />
--    <title>proteinxlocation | Annotate</title>
-+    <title>protein&times;location | Annotate</title>
-     <style>
-       html,
-       body,
-diff --git a/client/src/components/app.js b/client/src/components/app.js
-index f36977cf..975d885e 100644
---- a/client/src/components/app.js
-+++ b/client/src/components/app.js
-@@ -41,7 +41,7 @@ class App extends React.Component {
-     const { loading, error, graphRenderCounter } = this.props;
-     return (
-       <Container>
--        <Helmet title="proteinxlocation | Annotate" />
-+        <Helmet title="protein&times;location | Annotate" />
-         {loading ? (
-           <div
-             style={{
--- 
-2.34.1
 
