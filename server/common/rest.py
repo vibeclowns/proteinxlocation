@@ -141,7 +141,8 @@ def annotations_obs_get(request, data_adaptor):
         if annotations.user_annotations_enabled():
             labels = annotations.read_labels(data_adaptor)
         fbs = data_adaptor.annotation_to_fbs_matrix(Axis.OBS, fields, labels)
-        return make_response(fbs, HTTPStatus.OK, {"Content-Type": "application/octet-stream"})
+        fbs_bytes = fbs if isinstance(fbs, bytes) else fbs.encode("utf-8") if hasattr(fbs, "encode") else bytes(fbs)
+        return make_response(fbs_bytes, HTTPStatus.OK, {"Content-Type": "application/octet-stream"})
     except KeyError as e:
         return abort_and_log(HTTPStatus.BAD_REQUEST, str(e), include_exc_info=True)
 
